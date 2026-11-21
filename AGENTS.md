@@ -28,3 +28,9 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Product catalog is static data in `src/lib/catalog.ts` (no database); product photos are CDN asset pointers in `src/assets/products/` resolved via `src/lib/product-images.ts`. Why: the catalog mirrors the owner's WhatsApp catalog and changes rarely.
+- Cart lives in localStorage (`src/lib/cart.ts`, useSyncExternalStore with an empty server snapshot) and orders are sent as a prefilled wa.me message built in `src/lib/order.ts`. Why: the owner confirms price, prazo and payment manually on WhatsApp.
+- Personalization previews are drawn client-side (`src/components/site/Mockup.tsx`); uploaded images stay in the browser as object URLs and are never uploaded. Why: no storage backend; customers send originals on WhatsApp.
